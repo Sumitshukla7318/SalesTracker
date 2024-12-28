@@ -1,0 +1,55 @@
+{% extends "masterpage.html" %}
+{% block importcsv %}
+
+{% load static %}
+<link href="{% static "css/import_csv.css" %}" rel="stylesheet">
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg">
+                <div class="card-header bg-dark text-white text-center">
+                    <h3><i class="fas fa-file-upload"></i> Import Excel/CSV</h3>
+                </div>
+                <div class="card-body">
+                    <!-- Display Messages -->
+                    {% if messages %}
+                        <div class="mb-3">
+                            {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                    <i class="fas fa-info-circle"></i> {{ message }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <!-- Upload Form -->
+                    <form method="POST" enctype="multipart/form-data" class="p-3">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="file"><i class="fas fa-file-alt"></i> Select Excel/CSV File</label>
+                            <input 
+                                type="file" 
+                                class="form-control form-control-lg" 
+                                name="file" 
+                                id="file" 
+                                required 
+                                accept=".csv, .xlsx"
+                            >
+                            <small class="form-text text-muted">
+                                Please upload a valid Excel or CSV file. Supported formats: `.csv`, `.xlsx`
+                            </small>
+                        </div>
+                        <button type="submit" class="btn btn-custom btn-block mt-4">
+                            <i class="fas fa-upload"></i> Import File
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock importcsv %}

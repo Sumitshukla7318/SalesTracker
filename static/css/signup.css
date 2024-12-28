@@ -1,0 +1,42 @@
+body {
+    background: linear-gradient(to right, #4facfe, #00f2fe);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.card-header {
+    background-color: #4facfe;
+    color: white;
+    border-radius: 15px 15px 0 0;
+    text-align: center;
+    font-size: 1.5rem;
+}
+.btn-primary {
+    background-color: #4facfe;
+    border: none;
+}
+.btn-primary:hover {
+    background-color: #3d91e6;
+}
+.form-control {
+    border-radius: 50px;
+}
+.form-control:focus {
+    box-shadow: none;
+    border-color: #4facfe;
+}
+.social-icons a {
+    font-size: 1.5rem;
+    margin: 0 10px;
+    color: #4facfe;
+    transition: color 0.3s;
+}
+.social-icons a:hover {
+    color: #3d91e6;
+}

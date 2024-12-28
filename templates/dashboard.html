@@ -1,0 +1,103 @@
+{% extends "masterpage.html" %}
+{% block dashboard %}
+{% load myfilter %}
+{% load static %}
+<link href="{% static "css/dashboard.css" %}" rel="stylesheet">
+<div class="container">
+    <!-- Dashboard Header -->
+    <div class="dashboard-header">
+        <h1><i class="fas fa-chart-line"></i> Your Dashboard</h1>
+    </div>
+
+    <!-- Dashboard Summary Cards -->
+    <div class="row dashboard-cards">
+        <div class="col-md-4">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Total Sales</h5>
+                    <p class="card-text fs-3">${{ data.total_sales }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-danger text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Total Expenses</h5>
+                    <p class="card-text fs-3">${{ data.total_expenses }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-success text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Profit/Loss</h5>
+                    <p class="card-text fs-3">${{ data.profit_or_loss }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    {% if budget_alert %}
+    <div class="budget-alert-section mb-4">
+        <div class="card">
+            <div class="card-header bg-warning text-dark">
+                <h5><i class="fas fa-exclamation-triangle"></i> Budget Alerts</h5>
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    {% for alert in budget_alert %}
+                    <div class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1 text-danger">
+                                <i class="fas fa-chart-pie"></i> {{ alert.category }}
+                            </h5>
+                            <small class="text-muted">Exceeded by  {{ alert.monthly_budget|format_budget_alert:alert.total_expense }}</small>
+                        </div>
+                        <p class="mb-1">{{ alert.alert_message }}</p>
+                        <small class="text-muted">
+                            Budget: ${{ alert.monthly_budget }} | Total Spent: ${{ alert.total_expense }}
+                        </small>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="budget-alert-section mb-4">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h5><i class="fas fa-smile"></i> Budget Status</h5>
+            </div>
+            <div class="card-body">
+                <p class="text-success">You are within your budget for all categories. Great job managing your expenses!</p>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+
+
+
+    <!-- Charts Section -->
+    <div class="row charts">
+        <div class="col-md-6">
+            <img src="{{ charts.daily_line_chart }}" alt="Daily Sales and Expenses">
+        </div>
+        <div class="col-md-6">
+            <img src="{{ charts.expense_pie_chart }}" alt="Expense Breakdown">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <img src="{{ charts.sales_expenses_bar_chart }}" alt="Sales vs Expenses">
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock dashboard %}
